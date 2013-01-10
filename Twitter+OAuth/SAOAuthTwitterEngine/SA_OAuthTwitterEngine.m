@@ -151,8 +151,8 @@
 	if (self.pin.length) token.pin = self.pin;
     [request setHTTPMethod: @"POST"];
 	
-    OADataFetcher				*fetcher = [[[OADataFetcher alloc] init] autorelease];	
-    [fetcher fetchDataWithRequest: request delegate: self didFinishSelector: success didFailSelector: fail];
+    OADataFetcher				*fetcher = [[[OADataFetcher alloc] init] autorelease];
+    [fetcher fetchDataSynchronouslyWithRequest: request delegate: self didFinishSelector: success didFailSelector: fail];
 }
 
 
