@@ -137,9 +137,6 @@
 - (void) setPin: (NSString *) pin {
 	[_pin autorelease];
 	_pin = [pin retain];
-	
-	_accessToken.pin = pin;
-	_requestToken.pin = pin;
 }
 
 //=============================================================================================================================
@@ -148,11 +145,10 @@
     OAMutableURLRequest				*request = [[[OAMutableURLRequest alloc] initWithURL: url consumer: self.consumer token:token realm:nil signatureProvider: nil] autorelease];
 	if (!request) return;
 	
-	if (self.pin.length) token.pin = self.pin;
     [request setHTTPMethod: @"POST"];
 	
     OADataFetcher				*fetcher = [[[OADataFetcher alloc] init] autorelease];
-    [fetcher fetchDataSynchronouslyWithRequest: request delegate: self didFinishSelector: success didFailSelector: fail];
+    [fetcher fetchDataWithRequest: request delegate: self didFinishSelector: success didFailSelector: fail];
 }
 
 
@@ -179,8 +175,6 @@
 	
 	[_requestToken release];
 	_requestToken = [[OAToken alloc] initWithHTTPResponseBody:dataString];
-	
-	if (self.pin.length) _requestToken.pin = self.pin;
 }
 
 
